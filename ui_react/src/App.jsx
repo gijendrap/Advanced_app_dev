@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import  { lazy, Suspense } from 'react';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+const Home = lazy (()=> import('./pages/shared/Home'))
+const Feature = lazy (() => import('./pages/shared/Feature'))
+const Home2 = lazy (() => import('./pages/shared/Home2'))
+import WebLayout from './layouts/Weblayouts';
+import Loader from './public/Loader';
+import Error from './pages/shared/Error';
+import Login from './pages/auth/Login'
 
-function App() {
-  const [count, setCount] = useState(0)
 
+const AppRoutes = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+   <BrowserRouter>
+    <Suspense fallback={<Loader />}>
+    <Routes>
+      <Route element={<WebLayout />}>
+        <Route exact path='/' element={<Home />} />
+        <Route path='/Home2' element={<Home2/>} />
+        <Route path='/Feature' element={<Feature />} />
+        <Route path='/Loader' element={<Loader />} />
+      </Route>
+      <Route>
+        <Route path='/Login' element={<Login/>}/>
+      </Route>
+      <Route path='*' element={<Error />} />
+    </Routes>
+    </Suspense> 
+   </BrowserRouter>
+  );
+};
 
-export default App
+export default AppRoutes;
+
