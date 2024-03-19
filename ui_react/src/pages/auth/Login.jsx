@@ -1,21 +1,64 @@
+import img from '../../assets/logo.png';
+import { useState } from 'react'; // Importing useState hook
 
 export default function Login() {
-    return (
-      <>
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+
+  // State variables for email and password
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // Hardcoded admin and user credentials
+  const adminCredentials = {
+    email: 'admin@example.com',
+    password: 'adminpassword'
+  };
+
+  const userCredentials = {
+    email: 'user@example.com',
+    password: 'userpassword'
+  };
+
+  // Function to handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Check if entered credentials match admin credentials
+    if (email === adminCredentials.email && password === adminCredentials.password) {
+      // Redirect to admin dashboard page
+      window.location.href = '/AdminDashboard';
+    } else if (email === userCredentials.email && password === userCredentials.password) {
+      // Redirect to user dashboard page
+      window.location.href = '/Userdash';
+    } else {
+      // Handle incorrect credentials
+      alert('Invalid email or password. Please try again.');
+    }
+  };
+
+  return (
+    <>
+      <div className="flex min-h-screen">
+        {/* Image on the left */}
+        <div className="hidden lg:block lg:w-1/2 lg:bg-cover lg:bg-center lg:bg-no-repeat lg:bg-contain">
+          <div className="h-full" style={{ backgroundImage: "url('https://source.unsplash.com/random')" }}></div>
+        </div>
+        {/* Login form on the right */}
+        <div className="w-full lg:w-1/2 p-10">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+            {/* Logo */}
             <img
-              className="mx-auto h-10 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              className="mx-auto h-20 w-auto"
+              src={img}
               alt="Your Company"
             />
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
               Sign in to your account
             </h2>
           </div>
-  
+
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              {/* Email input */}
               <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                   Email address
@@ -27,11 +70,14 @@ export default function Login() {
                     type="email"
                     autoComplete="email"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
-  
+
+              {/* Password input */}
               <div>
                 <div className="flex items-center justify-between">
                   <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
@@ -50,11 +96,14 @@ export default function Login() {
                     type="password"
                     autoComplete="current-password"
                     required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
-  
+
+              {/* Sign in button */}
               <div>
                 <button
                   type="submit"
@@ -63,16 +112,30 @@ export default function Login() {
                   Sign in
                 </button>
               </div>
+
+              {/* Google login button */}
+              <div>
+                <button type="button" className="mt-6 w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300">
+                  <div className="flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" className="w-6 h-6" viewBox="0 0 48 48"><defs><path id="a" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/></defs><clipPath id="b"><use xlinkHref="#a" overflow="visible"/></clipPath><path clipPath="url(#b)" fill="#FBBC05" d="M0 37V11l17 13z"/><path clipPath="url(#b)" fill="#EA4335" d="M0 11l17 13 7-6.1L48 14V0H0z"/><path clipPath="url(#b)" fill="#34A853" d="M0 37l30-23 7.9 1L48 0v48H0z"/><path clipPath="url(#b)" fill="#4285F4" d="M48 48L17 24l-4-3 35-10z"/></svg>
+                    <span className="ml-4">
+                      Log in with Google
+                    </span>
+                  </div>
+                </button>
+              </div>
             </form>
-  
-            <p className="mt-10 text-center text-sm text-gray-500">
+
+            {/* Registration link */}
+            <p className="mt-5 text-center text-sm text-gray-500">
               Not a member?{' '}
-              <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+              <a href="/Register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                 Start a 14 day free trial
               </a>
             </p>
           </div>
         </div>
-      </>
-    )
-  }
+      </div>
+    </>
+  );
+}

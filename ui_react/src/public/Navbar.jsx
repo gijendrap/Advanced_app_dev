@@ -1,30 +1,44 @@
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import img from '../assets/logo.png'
 
 const navigation = [
-  { name: 'Product', href: 'Home2' },
+  { name: 'Product', href: 'Login' },
   { name: 'Features', href: '/Feature' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '/Loader' },
+  { name: 'Marketplace', href: '/Homes' },
+  { name: 'Pricing', href: '/Pricing' },
   { name: 'Home', href: '/' },
 ]
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false) // State to track login status
+
+  const handleLogin = () => {
+    // Logic for handling login (not implemented here)
+    setLoggedIn(true)
+  }
+
+  const handleLogout = () => {
+    // Logic for handling logout (not implemented here)
+    setLoggedIn(false)
+  }
 
   return (
     <div className="bg-white">
       <header className="absolute inset-x-0 top-0 z-50">
-        <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <nav className="flex items-center justify-between p-3 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
+              <div className="w-14 h-14 overflow-hidden">
+                <img
+                  className="w-full h-auto"
+                  src={img}
+                  alt=""
+                />
+              </div>
             </a>
           </div>
           <div className="flex lg:hidden">
@@ -45,11 +59,24 @@ export default function Navbar() {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="/Login" className="text-sm font-semibold leading-6 text-gray-900">
-              Log in <span aria-hidden="true">&rarr;</span>
-            </a>
+            {/* Conditional rendering based on login status */}
+            {loggedIn ? (
+              <>
+                <a href="/Userdash" className="text-sm font-semibold leading-6 text-gray-900">
+                  Profile <span aria-hidden="true">&rarr;</span>
+                </a>
+                <button onClick={handleLogout} className="ml-3 text-sm font-semibold leading-6 text-gray-900">
+                  Logout
+                </button>
+              </>
+            ) : (
+              <button onClick={handleLogin} className="text-sm font-semibold leading-6 text-gray-900">
+                Log in <span aria-hidden="true">&rarr;</span>
+              </button>
+            )}
           </div>
         </nav>
+        {/* Mobile menu dialog */}
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
           <div className="fixed inset-0 z-50" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
@@ -85,21 +112,22 @@ export default function Navbar() {
                   ))}
                 </div>
                 <div className="py-6">
-                  <a
-                    href="/Login"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Log in
-                  </a>
+                  {/* Conditional rendering based on login status */}
+                  {loggedIn ? (
+                    <button onClick={handleLogout} className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                      Logout
+                    </button>
+                  ) : (
+                    <button onClick={handleLogin} className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                      Log in
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
           </Dialog.Panel>
         </Dialog>
       </header>
-
-    
     </div>
   )
 }
-
