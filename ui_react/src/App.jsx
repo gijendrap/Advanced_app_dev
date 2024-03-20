@@ -25,7 +25,6 @@ const AppRoutes = () => {
   return (
    <BrowserRouter>
     <Suspense fallback={<Loader />}>
-
     <Routes>
       <Route element={<WebLayout />}>
         <Route exact path='/' element={<Home />} />
