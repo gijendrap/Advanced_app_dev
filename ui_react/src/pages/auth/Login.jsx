@@ -1,5 +1,7 @@
 import img from '../../assets/logo.png';
 import { useState } from 'react'; // Importing useState hook
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
 
@@ -18,25 +20,23 @@ export default function Login() {
     password: 'userpassword'
   };
 
-  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Check if entered credentials match admin credentials
     if (email === adminCredentials.email && password === adminCredentials.password) {
-      // Redirect to admin dashboard page
-      window.location.href = '/AdminDashboard';
+      window.location.href = '/Dashboard';
     } else if (email === userCredentials.email && password === userCredentials.password) {
-      // Redirect to user dashboard page
       window.location.href = '/Userdash';
     } else {
-      // Handle incorrect credentials
-      alert('Invalid email or password. Please try again.');
+      toast.error('Invalid email or password. Please try again.');
     }
   };
 
   return (
     <>
+          <ToastContainer />
+
       <div className="flex min-h-screen">
         {/* Image on the left */}
         <div className="hidden lg:block lg:w-1/2 lg:bg-cover lg:bg-center lg:bg-no-repeat lg:bg-contain">

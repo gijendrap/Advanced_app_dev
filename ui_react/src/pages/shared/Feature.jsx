@@ -1,21 +1,21 @@
-import { CloudArrowUpIcon, LockClosedIcon, ServerIcon } from '@heroicons/react/20/solid'
+import { MagnifyingGlassCircleIcon, DevicePhoneMobileIcon, VideoCameraIcon } from '@heroicons/react/20/solid'
 
 const features = [
   {
-    name: 'Push to deploy.',
+    name: 'Advanced Search Filters.',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: CloudArrowUpIcon,
+      'Enhance the search functionality with filters such as location, job type (full-time, part-time, contract), salary range, experience level, industry, and more.',
+    icon: MagnifyingGlassCircleIcon,
   },
   {
-    name: 'SSL certificates.',
-    description: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.',
-    icon: LockClosedIcon,
+    name: 'Mobile Optimization.',
+    description: 'Ensure that your website is fully optimized for mobile devices, allowing users to search for jobs and access features seamlessly on smartphones and tablets.',
+    icon: DevicePhoneMobileIcon,
   },
   {
-    name: 'Database backups.',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
-    icon: ServerIcon,
+    name: 'Video Job Postings.',
+    description: 'Allow employers to upload video job postings to provide a more engaging and immersive experience for candidates.',
+    icon: VideoCameraIcon,
   },
 ]
 
@@ -26,11 +26,10 @@ export default function Feature() {
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
           <div className="lg:pr-8 lg:pt-4">
             <div className="lg:max-w-lg">
-              <h2 className="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2>
-              <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">A better workflow</p>
+              <h2 className="text-base font-semibold leading-7 text-indigo-600">Empower Careers</h2>
+              <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Unlock Opportunity</p>
               <p className="mt-6 text-lg leading-8 text-gray-600">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque,
-                iste dolor cupiditate blanditiis ratione.
+              its our guiding principle. At our job search website, we believe in breaking down barriers and opening doors to new possibilities.
               </p>
               <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                 {features.map((feature) => (

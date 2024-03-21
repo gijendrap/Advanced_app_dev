@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SearchApplication<search>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.job.search.SearchApplication",
+            "projectName": "search",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
