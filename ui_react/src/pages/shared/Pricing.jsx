@@ -45,7 +45,7 @@ const PricingPanel = () => {
         </p>
         <div className="h-1 mx-auto bg-indigo-200 w-24 opacity-75 mt-4 rounded"></div>
 
-        <div className="max-w-full md:max-w-6xl mx-auto my-3 md:px-8">
+        <div className="max-w-full md:max-w-6xl mx-auto my-3 md:px-8 md:ml-12">
           {/* Pricing panels */}
           <div className="relative block flex flex-col md:flex-row items-center">
             {pricingData.map((plan, index) => (

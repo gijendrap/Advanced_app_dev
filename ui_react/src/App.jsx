@@ -20,6 +20,7 @@ import PricingPanel from './pages/shared/Pricing';
 import UserDash from './pages/user/Userdash';
 import Card from './build/Card';
 import Homes from './pages/shared/Homes';
+import PaySuccess from './build/Paysuccess'
 
 const AppRoutes = () => {
   return (
@@ -51,6 +52,7 @@ const AppRoutes = () => {
       <Route path='/About' element={<AboutUs/>}/>
       <Route path='/Userdash' element={<UserDash/>}/>
       <Route path='/Card' element={<Card/>}/>
+      <Route path='/Paysuccess' element={<PaySuccess/>}/>
 
       </Route>
 

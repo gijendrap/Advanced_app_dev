@@ -12,5 +12,4 @@ public class SearchController {
         return "hello World !";
     }
     
-
 }

@@ -1,37 +1,47 @@
-import img from '../../assets/logo.png';
-import { useState } from 'react'; // Importing useState hook
+import  { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import apiService from './../../components/apiService'; // Ensure you have the correct path
+import img from '../../assets/logo.png';
 
 export default function Login() {
-
-  // State variables for email and password
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate(); // For navigation after login
 
-  // Hardcoded admin and user credentials
-  const adminCredentials = {
-    email: 'admin@example.com',
-    password: 'adminpassword'
-  };
-
-  const userCredentials = {
-    email: 'user@example.com',
-    password: 'userpassword'
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      // Attempt login via API
+      const response = await apiService.post('http://localhost:8080/api/auth/login', {
+        email,
+        password,
+      });
+      
+      console.log('Login Response', response.data);
 
-    // Check if entered credentials match admin credentials
-    if (email === adminCredentials.email && password === adminCredentials.password) {
-      window.location.href = '/Dashboard';
-    } else if (email === userCredentials.email && password === userCredentials.password) {
-      window.location.href = '/Userdash';
-    } else {
+      // Assume response contains a token and role if successful
+      localStorage.setItem('authToken', response.data.token);
+      localStorage.setItem('Role', response.data.role);
+      localStorage.setItem('user', JSON.stringify(response.data.uid)); // Assuming uid is the user's identifier
+      
+      toast.success('Login successful. Welcome back!');
+
+      // Navigate based on role
+      if(response.data.role === "ADMIN") {
+        navigate("/");
+      } else {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error('Login Error', error);
       toast.error('Invalid email or password. Please try again.');
     }
   };
+
+  // The rest of your component remains the same
+
 
   return (
     <>
