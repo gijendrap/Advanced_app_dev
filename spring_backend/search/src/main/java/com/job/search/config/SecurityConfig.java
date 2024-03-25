@@ -2,6 +2,8 @@ package com.job.search.config;
 
 import java.util.Arrays;
 
+import static com.job.search.enums.Role.*;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -42,9 +44,10 @@ public class SecurityConfig {
 
         private static final String[] PublicEndPoints = {
                         "/api/auth/**",
-                        "/api/web/sites",
+                        "/api/web/sites/**",
                         "/swagger-ui/**",
-                        "/swagger-ui.html/",
+                        "/swagger-ui.html/**",
+                        "/api/admin/default",
                         "/v3/api-docs/**"
         };
 
@@ -54,7 +57,11 @@ public class SecurityConfig {
                                 .csrf(AbstractHttpConfigurer::disable)
                                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                                 .authorizeHttpRequests(
-                                                authorize -> authorize.requestMatchers(PublicEndPoints).permitAll().anyRequest().authenticated())
+                                                authorize -> authorize.requestMatchers(PublicEndPoints).permitAll()
+                                                .requestMatchers("/api/jobs/getall")
+                                                .hasRole(Admin.name())
+                                                .anyRequest()
+                                                .authenticated())
                                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                                 .authenticationProvider(authenticationProvider)
                                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
